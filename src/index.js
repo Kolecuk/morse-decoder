@@ -42,6 +42,7 @@ function decode(expr) {
 	let strLenSmall = 2;
 	let arr = [];
 	let subItem = 0;
+	let key = '';
 
 	for (let i = 0; i < expr.length; i += strLenBig) {
 		arr.push(expr.slice(i, i + strLenBig));
@@ -74,7 +75,18 @@ function decode(expr) {
 			return item;
 		}
 	})
-	console.log(arr);
+
+	arr = arr.map(function (item, index, array) {
+		for (key in MORSE_TABLE) {
+			if (item === key) {
+				item = MORSE_TABLE[key];
+			}
+		}
+		return item;
+	})
+
+	let result = arr.join('');
+	return result;
 }
 
 module.exports = {
